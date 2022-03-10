@@ -8,8 +8,8 @@ import pandas as pd
 import requests
 import time
 
+# given a link to an apartment, return its attributes
 def get_attributes(link):
-    # go thru each link and populate csv file
     driver.get(link)
 
     # get name of apartment
@@ -26,6 +26,7 @@ def get_attributes(link):
         print("Google review:", review)
     except:
         try:
+            driver.get(link)
             review = driver.find_element_by_xpath('.//span[@class = "reviewRating"]').text
             print("Apartments.com review:", review)
         except:
@@ -33,9 +34,8 @@ def get_attributes(link):
             print("review:", review)
     
     driver.get(link)
-   
 
-    # get address
+    # get address and neighborhood
     for elem in driver.find_elements_by_xpath("//*[@class='propertyAddressContainer']"):
         address = elem.text
     address = address.split("\n")
@@ -98,14 +98,13 @@ def get_attributes(link):
             pass
 
     print()
+    # iterate thru all floorplans
     for elem in driver.find_elements_by_xpath("//*[contains(@class, 'pricingGridItem')]"):
         if ("2 bed" in elem.text and "2 bath" in elem.text) or ("2 beds" in elem.text and "2 baths" in elem.text):
             attributes = elem.text
             attributes = attributes.split("\n")
             floorplan_id = attributes[0]
             print("Floorplan ID:", floorplan_id)
-
-           
 
             # price to sq ft ratio
             #price = attributes.index('price') + 1
