@@ -1,0 +1,53 @@
+TASK
+Each row in the Excel spreadsheet corresponds to a different apartment.
+We need to calculate a total score for each apartment based on it's attributes.
+The total score will be the sum of individual category scores.
+Please research the best possible way to calculate a weighted rank/score.
+However, this stackoverflow page is pretty helpful: https://stackoverflow.com/questions/66238118/algorithm-to-do-efficient-weighted-ranking
+All I want you to do is figure out how to mathematically calculate a total score for an apartment based on the spreadsheet's values of the apartment's attributes.
+Test out your idea until you get some good results in Excel, and then I'll translate it to code.
+Bottom Line: Create an Excel function that will assign a total score to a single row (apartment)
+
+POSSIBLE PROBLEMS
+Sometimes the 'review' column might be equal to "NONE" if nobody has reviewed the apartment, so take that into account.
+Don't look at Price or Square Feet. Just look at Price per Square Feet.
+Some attributes are deal-breakers, and we should not take the apartment if these conditions are met.
+For example, if AC is False, then the score should just be 0.
+
+BASIC IDEA
+a_score = a_rank * a_weight
+b_score = b_rank * b_weight
+c_score = c_rank * c_weight
+score = a_score + b_score + c_score
+
+LOCATION
+For example. Let's look at neighborhoods (this is how we are going to score location).
+These are the all of the possible neighborhoods (i went thru the raw data)
+    'Urban Center Irving', 'Grapevine', 'Hurst/Euless/Bedford', 'Valley Ranch', 
+    'Las Colinas', 'Koreatown/Gribble', 'Farmers Branch', 'Coppell', 'Irving', 
+    'Cypress Waters', 'Carrollton', 'Downtown Carrollton', 'Northwest Dallas', 
+    'Original Town'
+So, you should probably rank the neighborhoods from most to least desirable:
+    1. Urban Center Living
+    2. Las Colinas
+    3. Valley Ranch
+    ...etc...
+Then, maybe add a score based on what neighborhood the apartment is in...
+    1. Urban Center Living: +14 to the location score 
+    2. Las Colinas: +13 to the location score 
+    3. Valley Ranch: +12 to the location score 
+    ...etc...
+
+WEIGHT
+You'll need to calculate a score for each category we care about, following the category ranking that you made.
+For example, price per square feet is above location, so it should have a larger weight.
+
+MISC
+Feel free to ask me questions about the spreadsheet if you're confused.
+Also I want you to check for any weird errors in the spreadsheet.
+The scraper is not always 100% perfect.
+For example, 
+maybe the price per sqft ratio is like 100 or 0
+or maybe A/C is False
+
+
