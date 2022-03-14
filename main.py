@@ -99,6 +99,7 @@ def get_attributes(link):
 
     print()
     # iterate thru all floorplans
+    dicts = []
     for elem in driver.find_elements_by_xpath("//*[contains(@class, 'pricingGridItem')]"):
         if ("2 bed" in elem.text and "2 bath" in elem.text) or ("2 beds" in elem.text and "2 baths" in elem.text):
             attributes = elem.text
@@ -147,7 +148,7 @@ def get_attributes(link):
                 'Price per Square Feet': price_per_sqft, 'Floor Plan ID': floorplan_id, 'Washer/Dryer': washer_dryer, 'Wi-Fi': wifi, 'A/C and Heating': ac_heating, 
                 'Parking': parking, 'Google Review': review, 'Dishwasher': dishwasher, 'Disposal': disposal, 'Pets Allowed': pets, 'Pool': pool, 
                 'Walk-In Closets': walk_in, 'Balcony': balcony, 'Fitness Center': fitness_center, 'All Attributes': other_attributes}
-            return dict
+            dicts.append(dict)
 
             #TODO: ADD SCORE
 
@@ -166,6 +167,7 @@ def get_attributes(link):
             # 3 Valley Ranch
 
             #TODO: WRITE SCORE TO DF
+    return dicts
 
 # start timer
 start = time.time()
@@ -214,10 +216,10 @@ link = 'https://www.apartments.com/801-lasco-irving-tx/p42dr6r/'
 get_attributes(link)
 
 for link in links:
-    dict = get_attributes(link)
-    df = df.append(dict, ignore_index = True)
-
-    
+    # get all floorplan as a list of dictionaries, append each one to the df
+    dicts = get_attributes(link)
+    for dict in dicts:
+        df = df.append(dict, ignore_index = True)
 
 
 #TODO: SAVE DF AS CSV OR EXCEL FILE?

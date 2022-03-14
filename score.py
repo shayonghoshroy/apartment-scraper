@@ -120,11 +120,11 @@ def main():
         #print(df.head)
 
     # save to file
-    df.to_excel('scored-apartments.xlsx')
+    df.to_excel('scored-floorplans.xlsx')
 
     # sort df and save as new excel sheet
     final_df = df.sort_values(by=['final-score'], ascending=False)
-    final_df.to_excel('ranked-apartments.xlsx')
+    final_df.to_excel('ranked-floorplans.xlsx')
 main()
 
 
